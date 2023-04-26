@@ -47,10 +47,10 @@ public class ConnectFourUI extends JPanel implements Runnable {
         } else if (select == 3) {
             yDiskY += diskSpeed;
         }
-        if (diskY > SCREEN_HEIGHT - 128 * 2) {
-            diskY = SCREEN_HEIGHT - 128 * 2;
+        if (diskY > SCREEN_HEIGHT - diskSize * 2) {
+            diskY = SCREEN_HEIGHT - diskSize * 2;
         } else if (diskY1 > SCREEN_HEIGHT - 128 * 2) {
-            diskY1 = SCREEN_HEIGHT - 128 * 2;
+            diskY1 = SCREEN_HEIGHT - diskSize * 2;
         }
 
 
@@ -62,8 +62,8 @@ public class ConnectFourUI extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.RED);
-        for (int i = 0; i < SCREEN_WIDTH + 128; i += 128) {
-            for (int j = 0; j < SCREEN_HEIGHT; j += 128) {
+        for (int i = 0; i < SCREEN_WIDTH + diskSlotSize; i += diskSlotSize) {
+            for (int j = 0; j < SCREEN_HEIGHT; j += diskSlotSize) {
                 g2D.setColor(Color.WHITE);
                 g2D.fillOval(i, j, diskSize, diskSize);
             }
