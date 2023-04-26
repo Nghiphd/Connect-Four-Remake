@@ -11,10 +11,11 @@ public class ConnectFourUI extends JPanel implements Runnable {
     final int SCREEN_HEIGHT = diskSlotSize * boardRowSlots + 128;
     int diskY = -128;
     int diskX = 0;
+    int diskY1 = -128;
+    int yDiskY = -128;
     int diskSpeed = 10;
     int select;
     Thread thread;
-
     ConnectFourUI() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLUE);
@@ -38,13 +39,21 @@ public class ConnectFourUI extends JPanel implements Runnable {
         }
     }
 
-    public void redraw() {
+    public void redraw() { 
         if (select == 1) {
             diskY += diskSpeed;
+        } else if (select == 2) {
+            diskY1 += diskSpeed;
+        } else if (select == 3) {
+            yDiskY += diskSpeed;
         }
-        if (diskY + 128 > SCREEN_HEIGHT) {
-            diskY = SCREEN_HEIGHT - 128;
+        if (diskY > SCREEN_HEIGHT - 128 * 2) {
+            diskY = SCREEN_HEIGHT - 128 * 2;
+        } else if (diskY1 > SCREEN_HEIGHT - 128 * 2) {
+            diskY1 = SCREEN_HEIGHT - 128 * 2;
         }
+
+
     }
 
 
@@ -59,8 +68,11 @@ public class ConnectFourUI extends JPanel implements Runnable {
                 g2D.fillOval(i, j, diskSize, diskSize);
             }
         }
-        g2D.setColor(Color.RED);
         g2D.fillOval(diskX, diskY, diskSize, diskSize);
+        g2D.fillOval(diskX + 128, diskY1 , diskSize, diskSize );
+        g2D.setColor(Color.YELLOW);
+        g2D.fillOval(diskX, yDiskY, diskSize, diskSize);
+
         g2D.dispose();
     }
 
