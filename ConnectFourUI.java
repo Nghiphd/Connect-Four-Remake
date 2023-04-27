@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 public class ConnectFourUI extends JPanel implements Runnable {
     final int diskSlotSize = 128;
     final int boardRowSlots = 6;
@@ -9,13 +8,17 @@ public class ConnectFourUI extends JPanel implements Runnable {
     final int diskSize = 128;
     final int SCREEN_WIDTH = diskSlotSize * boardColumnSlots;
     final int SCREEN_HEIGHT = diskSlotSize * boardRowSlots + 128;
-    int diskY = -128;
-    int diskX = 0;
-    int diskY1 = -128;
-    int yDiskY = -128;
-    int diskSpeed = 10;
+    int[] diskY = { -128, -128, -128, -128, -128, -128, -128 };
+    int[] diskX = { 0, 128, 256, 384, 512, 640, 768 };
+    int diskSpeed = 60;
     int select;
+    boolean isYellowTurn;
+    boolean isRedTurn;
+
+
     Thread thread;
+
+
     ConnectFourUI() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLUE);
@@ -25,6 +28,7 @@ public class ConnectFourUI extends JPanel implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
+
     @Override
     public void run() {
         while (thread != null) {
@@ -39,24 +43,67 @@ public class ConnectFourUI extends JPanel implements Runnable {
         }
     }
 
-    public void redraw() { 
-        if (select == 1) {
-            diskY += diskSpeed;
-        } else if (select == 2) {
-            diskY1 += diskSpeed;
-        } else if (select == 3) {
-            yDiskY += diskSpeed;
-        }
-        if (diskY > SCREEN_HEIGHT - diskSize * 2) {
-            diskY = SCREEN_HEIGHT - diskSize * 2;
-        } else if (diskY1 > SCREEN_HEIGHT - 128 * 2) {
-            diskY1 = SCREEN_HEIGHT - diskSize * 2;
-        }
-
-
+    public void redraw() {
+        selectDiskPosition();
+        collisionDisk();
     }
 
+    private void collisionDisk() {
+        if (diskY[0] > SCREEN_HEIGHT - diskSize * 2) {
+            diskY[0] = SCREEN_HEIGHT - diskSize * 2;
+        } else if (diskY[1] > SCREEN_HEIGHT - 128 * 2) {
+            diskY[1] = SCREEN_HEIGHT - diskSize * 2;
+        } else if (diskY[2] > SCREEN_HEIGHT - diskSize * 2) {
+            diskY[2] = SCREEN_HEIGHT - diskSize * 2;
+        } else if (diskY[3] > SCREEN_HEIGHT - diskSize * 2) {
+            diskY[3] = SCREEN_HEIGHT - diskSize * 2;
+        } else if (diskY[4] > SCREEN_HEIGHT - diskSize * 2) {
+            diskY[4] = SCREEN_HEIGHT - diskSize * 2;
+        } else if (diskY[5] > SCREEN_HEIGHT - diskSize * 2) {
+            diskY[5] = SCREEN_HEIGHT - diskSize * 2;
+        } else if (diskY[6] > SCREEN_HEIGHT - diskSize * 2) {
+            diskY[6] = SCREEN_HEIGHT - diskSize * 2;
+        }
+    }
 
+    private void selectDiskPosition() {
+        if (isYellowTurn == true) {
+            if (select == 1) {
+                diskY[0] += diskSpeed;
+            } else if (select == 2) {
+                diskY[1] += diskSpeed;
+            } else if (select == 3) {
+                diskY[2] += diskSpeed;
+            } else if (select == 4) {
+                diskY[3] += diskSpeed;
+            } else if (select == 5) {
+                diskY[4] += diskSpeed;
+            } else if (select == 6) {
+                diskY[5] += diskSpeed;
+            } else if (select == 7) {
+                diskY[6] += diskSpeed;
+            }
+        }
+        if (isRedTurn) {
+            if (select == 1) {
+                diskY[0] += diskSpeed;
+            } else if (select == 2) {
+                diskY[1] += diskSpeed;
+            } else if (select == 3) {
+                diskY[2] += diskSpeed;
+            } else if (select == 4) {
+                diskY[3] += diskSpeed;
+            } else if (select == 5) {
+                diskY[4] += diskSpeed;
+            } else if (select == 6) {
+                diskY[5] += diskSpeed;
+            } else if (select == 7) {
+                diskY[6] += diskSpeed;
+            }
+        }
+            
+        
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -68,13 +115,24 @@ public class ConnectFourUI extends JPanel implements Runnable {
                 g2D.fillOval(i, j, diskSize, diskSize);
             }
         }
-        g2D.fillOval(diskX, diskY, diskSize, diskSize);
-        g2D.fillOval(diskX + 128, diskY1 , diskSize, diskSize );
-        g2D.setColor(Color.YELLOW);
-        g2D.fillOval(diskX, yDiskY, diskSize, diskSize);
+        g2D.setColor(Color.RED);
+        g2D.fillOval(diskX[0], diskY[0], diskSize, diskSize);
+        g2D.fillOval(diskX[1], diskY[1], diskSize, diskSize);
+        g2D.fillOval(diskX[2], diskY[2], diskSize, diskSize);
+        g2D.fillOval(diskX[3], diskY[3], diskSize, diskSize);
+        g2D.fillOval(diskX[4], diskY[4], diskSize, diskSize);
+        g2D.fillOval(diskX[5], diskY[5], diskSize, diskSize);
+        g2D.fillOval(diskX[6], diskY[6], diskSize, diskSize);
 
+        g2D.setColor(Color.YELLOW);
+        g2D.fillOval(diskX[7], diskY[0], diskSize, diskSize);
+        g2D.fillOval(diskX[8], diskY[1], diskSize, diskSize);
+        g2D.fillOval(diskX[9], diskY[2], diskSize, diskSize);
+        g2D.fillOval(diskX[10], diskY[3], diskSize, diskSize);
+        g2D.fillOval(diskX[11], diskY[4], diskSize, diskSize);
+        g2D.fillOval(diskX[12], diskY[5], diskSize, diskSize);
+        g2D.fillOval(diskX[13], diskY[6], diskSize, diskSize);
         g2D.dispose();
     }
-
 
 }
