@@ -12,8 +12,6 @@ public class ConnectFourUI extends JPanel implements Runnable {
     int[] diskX = { 0, 128, 256, 384, 512, 640, 768 };
     int diskSpeed = 60;
     int select;
-    boolean isYellowTurn;
-    boolean isRedTurn;
 
 
     Thread thread;
@@ -67,7 +65,6 @@ public class ConnectFourUI extends JPanel implements Runnable {
     }
 
     private void selectDiskPosition() {
-        if (isYellowTurn == true) {
             if (select == 1) {
                 diskY[0] += diskSpeed;
             } else if (select == 2) {
@@ -83,27 +80,8 @@ public class ConnectFourUI extends JPanel implements Runnable {
             } else if (select == 7) {
                 diskY[6] += diskSpeed;
             }
-        }
-        if (isRedTurn) {
-            if (select == 1) {
-                diskY[0] += diskSpeed;
-            } else if (select == 2) {
-                diskY[1] += diskSpeed;
-            } else if (select == 3) {
-                diskY[2] += diskSpeed;
-            } else if (select == 4) {
-                diskY[3] += diskSpeed;
-            } else if (select == 5) {
-                diskY[4] += diskSpeed;
-            } else if (select == 6) {
-                diskY[5] += diskSpeed;
-            } else if (select == 7) {
-                diskY[6] += diskSpeed;
-            }
-        }
             
-        
-    }
+        }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -115,7 +93,7 @@ public class ConnectFourUI extends JPanel implements Runnable {
                 g2D.fillOval(i, j, diskSize, diskSize);
             }
         }
-        g2D.setColor(Color.RED);
+        g2D.setColor(Color.YELLOW);
         g2D.fillOval(diskX[0], diskY[0], diskSize, diskSize);
         g2D.fillOval(diskX[1], diskY[1], diskSize, diskSize);
         g2D.fillOval(diskX[2], diskY[2], diskSize, diskSize);
@@ -124,14 +102,6 @@ public class ConnectFourUI extends JPanel implements Runnable {
         g2D.fillOval(diskX[5], diskY[5], diskSize, diskSize);
         g2D.fillOval(diskX[6], diskY[6], diskSize, diskSize);
 
-        g2D.setColor(Color.YELLOW);
-        g2D.fillOval(diskX[7], diskY[0], diskSize, diskSize);
-        g2D.fillOval(diskX[8], diskY[1], diskSize, diskSize);
-        g2D.fillOval(diskX[9], diskY[2], diskSize, diskSize);
-        g2D.fillOval(diskX[10], diskY[3], diskSize, diskSize);
-        g2D.fillOval(diskX[11], diskY[4], diskSize, diskSize);
-        g2D.fillOval(diskX[12], diskY[5], diskSize, diskSize);
-        g2D.fillOval(diskX[13], diskY[6], diskSize, diskSize);
         g2D.dispose();
     }
 
