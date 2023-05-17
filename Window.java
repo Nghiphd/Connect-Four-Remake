@@ -44,6 +44,14 @@ public class Window {
         button5.addActionListener(e -> connectFourUI.select = 6);
         button6.addActionListener(e -> connectFourUI.select = 7);
 
+        button0.addActionListener(e -> connectFourUI.TURN++);
+        button1.addActionListener(e -> connectFourUI.TURN++);
+        button2.addActionListener(e -> connectFourUI.TURN++);
+        button3.addActionListener(e -> connectFourUI.TURN++);
+        button4.addActionListener(e -> connectFourUI.TURN++);
+        button5.addActionListener(e -> connectFourUI.TURN++);
+        button6.addActionListener(e -> connectFourUI.TURN++);
+
     }
 
 

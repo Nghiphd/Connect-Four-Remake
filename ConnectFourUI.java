@@ -1,5 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
+import java.awt
+.*;
 
 public class ConnectFourUI extends JPanel implements Runnable {
     final int diskSlotSize = 128;
@@ -12,6 +13,7 @@ public class ConnectFourUI extends JPanel implements Runnable {
     int[] diskX = { 0, 128, 256, 384, 512, 640, 768 };
     int diskSpeed = 60;
     int select;
+    int TURN = 1;
 
 
     Thread thread;
@@ -84,16 +86,21 @@ public class ConnectFourUI extends JPanel implements Runnable {
         }
 
     public void paintComponent(Graphics g) {
+        
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(Color.RED);
-        for (int i = 0; i < SCREEN_WIDTH + diskSlotSize; i += diskSlotSize) {
+        g2D.setColor(Color.YELLOW);
+        for (int i = 0; i < SCREEN_WIDTH; i += diskSlotSize) {
             for (int j = 0; j < SCREEN_HEIGHT; j += diskSlotSize) {
                 g2D.setColor(Color.WHITE);
                 g2D.fillOval(i, j, diskSize, diskSize);
             }
         }
-        g2D.setColor(Color.YELLOW);
+        if (TURN % 2 > 0) {
+            g2D.setColor(Color.YELLOW);
+        } else {
+            g2D.setColor(Color.RED);
+        }
         g2D.fillOval(diskX[0], diskY[0], diskSize, diskSize);
         g2D.fillOval(diskX[1], diskY[1], diskSize, diskSize);
         g2D.fillOval(diskX[2], diskY[2], diskSize, diskSize);
@@ -103,6 +110,7 @@ public class ConnectFourUI extends JPanel implements Runnable {
         g2D.fillOval(diskX[6], diskY[6], diskSize, diskSize);
 
         g2D.dispose();
+
     }
 
 }
